@@ -24,38 +24,67 @@
 				  class='btn btn-outline-secondary shadow' 
 				  href='#' 
 				  data-bs-toggle="modal" 
-				  data-bs-target="#staticBackdrop" 
-				  data-bs-whatever="@en"
-		  >ENGLISH</button>
-		
-		<button 
+				  data-bs-target="#modal"
+				  data-bs-obj="msg1"
+				  data-bs-cat="2"
+				  data-bs-msg="@en"
+                  >ENGLISH</button>
+                  
+                  <button 
 				  id='fr' 
 				  class='btn btn-outline-secondary shadow' 
 				  href='#' 
 				  data-bs-toggle="modal" 
-				  data-bs-target="#staticBackdrop" 
-				  data-bs-whatever="@fr"
-		  >FRENCH</button>
-
-		<button 
+				  data-bs-target="#modal" 
+				  data-bs-obj="msg2"
+				  data-bs-cat="2"
+				  data-bs-msg="@fr"
+                  >FRENCH</button>
+                  
+                  <button 
 				  id='info' 
 				  class='btn btn-outline-secondary shadow' 
 				  href='#' 
 				  data-bs-toggle="modal" 
-				  data-bs-target="#staticBackdrop" 
-				  data-bs-whatever="@info"
-		  >INFO</button>
-
-		<button 
+				  data-bs-target="#modal" 
+				  data-bs-obj="msg1"
+				  data-bs-cat="1"
+				  data-bs-msg="@info"
+                  >INFO</button>
+                  
+                  <button 
 				  id='close' 
 				  class='btn btn-outline-secondary shadow' 
 				  href='#' 
 				  data-bs-toggle="modal" 
-				  data-bs-target="#staticBackdrop" 
-				  data-bs-whatever="@close"
+				  data-bs-target="#modal" 
+				  data-bs-obj="msg2"
+				  data-bs-cat="0"
+				  data-bs-msg="@close"
 		  >CLOSE</button>
 
 	</div>
+
+
+    <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="modalLabel">New message</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Send message</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
 </main>
 </body>
 </html>
