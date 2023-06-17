@@ -12,6 +12,6 @@ body {
 }
 
 .modal-backdrop {
-  z-index: -1 !important;
-	background:red !important;
+  /* z-index: -1 !important; */
+	/* background:red !important; */
 }

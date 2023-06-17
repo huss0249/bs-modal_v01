@@ -38,6 +38,35 @@ $main.append($modal)
 
 const populate_msg = (e) => {
 	console.log(e)
+	console.log($modal)
+
+	// if ($modal) {
+		// $modal.addEventListener('show.bs.modal', event => {
+			// Button that triggered the modal
+			// const btnTarget = e.relatedTarget
+			let btnTarget = e.target
+			console.log('btnTarget => ', btnTarget)
+	
+			// Extract info from data-bs-* attributes
+			let dataObj = btnTarget.getAttribute('data-bs-obj')
+			console.log('dataObj => ', dataObj)
+	
+			let dataCat = btnTarget.getAttribute('data-bs-cat')
+			console.log('dataCat => ', dataCat)
+	
+			let dataMsg = btnTarget.getAttribute('data-bs-msg')
+			console.log('dataMsg => ', dataMsg)
+	
+			// Update the modal's content.
+			let modalTitle = $modal.querySelector('.modal-title')
+			let modalBody = $modal.querySelector('.modal-body')
+	
+			modalTitle.textContent = `Data: ${btnTarget} | ${dataObj} | ${dataCat} | ${dataMsg}`
+			modalBody.textContent = `Data: ${btnTarget} | ${dataObj} | ${dataCat} | ${dataMsg}`
+		// })
+	// }
+
+
 }
 
 const $en = document.querySelector('#en')
@@ -51,10 +80,7 @@ $info.addEventListener('click', populate_msg)
 $close.addEventListener('click', populate_msg)
 
 
-// const $myModal = document.getElementById('modal')
-// if ($myModal) {
-if ($modal) {
-	// $myModal.addEventListener('show.bs.modal', event => {
+/* if ($modal) {
 	$modal.addEventListener('show.bs.modal', event => {
 		// Button that triggered the modal
 		const btnTarget = event.relatedTarget
@@ -70,21 +96,27 @@ if ($modal) {
 		const dataMsg = btnTarget.getAttribute('data-bs-msg')
 		console.log('dataMsg => ', dataMsg)
 
-		// If necessary, you could initiate an Ajax request here
-		// and then do the updating in a callback.
-
 		// Update the modal's content.
-		// const modalTitle = $myModal.querySelector('.modal-title')
-		// const modalBody = $myModal.querySelector('.modal-body')
 		const modalTitle = $modal.querySelector('.modal-title')
 		const modalBody = $modal.querySelector('.modal-body')
-		// const modalBodyInput = $myModal.querySelector('.modal-body input')
 
 		modalTitle.textContent = `Data: ${btnTarget} | ${dataObj} | ${dataCat} | ${dataMsg}`
 		modalBody.textContent = `Data: ${btnTarget} | ${dataObj} | ${dataCat} | ${dataMsg}`
-		// modalBodyInput.value = dataTarget
 	})
-}
+} */
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /*
