@@ -1,3 +1,17 @@
-h1, h2 {
-  font-family: Lato;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+/* 	width: 100vw; */
+/* 	height: 100vh; */
+
+/* 	display: flex; */
+}
+
+.modal-backdrop {
+  z-index: -1 !important;
+	background:red !important;
 }
