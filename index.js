@@ -2,7 +2,7 @@ const msg1 = { head: 'head1', msg: 'Hello from msg1', Yes: 'A1', No: 'B1', Ok: '
 const msg2 = { head: 'head1', msg: 'Hello from msg2', Yes: 'A2', No: 'B2', Ok: 'ok'}
 //----------------------------------------------------------
 
-const make_modal = () => {
+const init_modal = () => {
 	let modal = document.createElement('div')
 	modal.id = 'modal'
 	modal.className = 'modal fade'
@@ -10,63 +10,70 @@ const make_modal = () => {
 	modal.setAttribute('aria-labelledby', 'modalLabel')
 	modal.setAttribute('aria-hidden', 'true')
 	modal.innerHTML = `
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-							<h1 class="modal-title fs-5" id="modalLabel">New message</h1>
+					<div class="modal-dialog modal-dialog-centered">
+						<div class="modal-content shadow">
+							<div class="modal-header justify-content-center border-0">
+							<h5 class="modal-title fs-5" id="modalLabel">New message</h5>
 							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 							</div>
-							<div class="modal-body">
+							<div class="modal-body text-center">
 
 							</div>
-							<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-							<button type="button" class="btn btn-primary">Send message</button>
+							<div class="modal-footer justify-content-center border-0">
+
 							</div>
 						</div>
 						</div>
 						`
+/* 							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-primary">Send message</button> */
 	return modal
 }
 
-const $modal = make_modal()
+const $modal = init_modal()
 
 bootstrap.Modal.getOrCreateInstance($modal)
 
 let $main = document.getElementById('main')
 $main.append($modal)
 
-const populate_msg = (e) => {
-	console.log(e)
-	console.log($modal)
+const update_modal = (selectedBtn) => {
+	// Extract info from data-bs-* attributes
+	let dataObj = selectedBtn.getAttribute('data-bs-obj')
+	let dataCat = selectedBtn.getAttribute('data-bs-cat')
+	let dataMsg = selectedBtn.getAttribute('data-bs-msg')
 
-	// if ($modal) {
-		// $modal.addEventListener('show.bs.modal', event => {
-			// Button that triggered the modal
-			// const btnTarget = e.relatedTarget
-			let btnTarget = e.target
-			console.log('btnTarget => ', btnTarget)
+	let modalTitle = $modal.querySelector('.modal-title')
+	let modalBody = $modal.querySelector('.modal-body')
+	let modalFooter = $modal.querySelector('.modal-footer')
 	
-			// Extract info from data-bs-* attributes
-			let dataObj = btnTarget.getAttribute('data-bs-obj')
-			console.log('dataObj => ', dataObj)
-	
-			let dataCat = btnTarget.getAttribute('data-bs-cat')
-			console.log('dataCat => ', dataCat)
-	
-			let dataMsg = btnTarget.getAttribute('data-bs-msg')
-			console.log('dataMsg => ', dataMsg)
-	
-			// Update the modal's content.
-			let modalTitle = $modal.querySelector('.modal-title')
-			let modalBody = $modal.querySelector('.modal-body')
-	
-			modalTitle.textContent = `Data: ${btnTarget} | ${dataObj} | ${dataCat} | ${dataMsg}`
-			modalBody.textContent = `Data: ${btnTarget} | ${dataObj} | ${dataCat} | ${dataMsg}`
-		// })
-	// }
+	// Update the modal's content.
+	// modalTitle.textContent = `Data: ${selectedBtn} | ${dataObj} | ${dataCat} | ${dataMsg}`
+	modalTitle.textContent = ''
+	modalBody.textContent = `Data: ${selectedBtn} | ${dataObj} | ${dataCat} | ${dataMsg}`
+	modalFooter.innerHTML = `<button class='btn btn-info'>: ${selectedBtn} | ${dataObj} | ${dataCat} | ${dataMsg}</button>`
+}
+
+const generate_modal = (e) => {
+	let selectedBtn = e.target
+	console.log('selectedBtn => ', selectedBtn)
 
 
+	update_modal(selectedBtn)
+
+	// // Extract info from data-bs-* attributes
+	// let dataObj = selectedBtn.getAttribute('data-bs-obj')
+	// let dataCat = selectedBtn.getAttribute('data-bs-cat')
+	// let dataMsg = selectedBtn.getAttribute('data-bs-msg')
+
+	// let modalTitle = $modal.querySelector('.modal-title')
+	// let modalBody = $modal.querySelector('.modal-body')
+	// let modalFooter = $modal.querySelector('.modal-footer')
+	
+	// // Update the modal's content.
+	// modalTitle.textContent = `Data: ${selectedBtn} | ${dataObj} | ${dataCat} | ${dataMsg}`
+	// modalBody.textContent = `Data: ${selectedBtn} | ${dataObj} | ${dataCat} | ${dataMsg}`
+	// modalFooter.innerHTML = `<button class='btn btn-info'>: ${selectedBtn} | ${dataObj} | ${dataCat} | ${dataMsg}</button>`
 }
 
 const $en = document.querySelector('#en')
@@ -74,10 +81,10 @@ const $fr = document.querySelector('#fr')
 const $info = document.querySelector('#info')
 const $close = document.querySelector('#close')
 
-$en.addEventListener('click', populate_msg)
-$fr.addEventListener('click', populate_msg)
-$info.addEventListener('click', populate_msg)
-$close.addEventListener('click', populate_msg)
+$en.addEventListener('click', generate_modal)
+$fr.addEventListener('click', generate_modal)
+$info.addEventListener('click', generate_modal)
+$close.addEventListener('click', generate_modal)
 
 
 /* if ($modal) {
@@ -203,7 +210,7 @@ const showModal = (flag, obj) => {
 }
 //----------------------------------------------------------
 
-const populate_msg = function(e) {
+const generate_modal = function(e) {
 
 	// First parameter: [
 		// 0: close btn only,
@@ -223,10 +230,10 @@ const $fr = document.querySelector('#fr')
 const $info = document.querySelector('#info')
 const $close = document.querySelector('#close')
 
-$en.addEventListener('click', populate_msg)
-$fr.addEventListener('click', populate_msg)
-$info.addEventListener('click', populate_msg)
-$close.addEventListener('click', populate_msg)
+$en.addEventListener('click', generate_modal)
+$fr.addEventListener('click', generate_modal)
+$info.addEventListener('click', generate_modal)
+$close.addEventListener('click', generate_modal)
 
 // $en.addEventListener('click', showModal(2, msg1))
 // $fr.addEventListener('click', showModal(2, msg2))
