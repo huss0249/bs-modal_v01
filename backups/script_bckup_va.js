@@ -3,12 +3,14 @@ const msg2 = { head: 'head1', msg: 'Hello from msg2', Yes: 'A2', No: 'B2', Ok: '
 //----------------------------------------------------------
 
 const make_modal = () => {
+	// let df = new DocumentFragment()
 	let modal = document.createElement('div')
 	modal.id = 'modal'
 	modal.className = 'modal fade'
 	modal.setAttribute('tabindex', '-1')
 	modal.setAttribute('aria-labelledby', 'modalLabel')
 	modal.setAttribute('aria-hidden', 'true')
+	// <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
 	modal.innerHTML = `
 					<div class="modal-dialog">
 						<div class="modal-content">
@@ -26,15 +28,24 @@ const make_modal = () => {
 						</div>
 						</div>
 						`
+						// </div>
+	// console.log(modal)
 	return modal
 }
 
+// const modal = make_modal()
 const $modal = make_modal()
+
+// $modal = new bootstrap.Modal(document.querySelector('#modal'))
+// let $modal = bootstrap.Modal.getOrCreateInstance(modal)
 
 bootstrap.Modal.getOrCreateInstance($modal)
 
 let $main = document.getElementById('main')
+// $main.append(modal)
 $main.append($modal)
+console.log($main)
+// console.log($modal)
 
 const populate_msg = (e) => {
 	console.log(e)
@@ -51,11 +62,9 @@ $info.addEventListener('click', populate_msg)
 $close.addEventListener('click', populate_msg)
 
 
-// const $myModal = document.getElementById('modal')
-// if ($myModal) {
-if ($modal) {
-	// $myModal.addEventListener('show.bs.modal', event => {
-	$modal.addEventListener('show.bs.modal', event => {
+const $myModal = document.getElementById('modal')
+if ($myModal) {
+	$myModal.addEventListener('show.bs.modal', event => {
 		// Button that triggered the modal
 		const btnTarget = event.relatedTarget
 		console.log('btnTarget => ', btnTarget)
@@ -74,10 +83,8 @@ if ($modal) {
 		// and then do the updating in a callback.
 
 		// Update the modal's content.
-		// const modalTitle = $myModal.querySelector('.modal-title')
-		// const modalBody = $myModal.querySelector('.modal-body')
-		const modalTitle = $modal.querySelector('.modal-title')
-		const modalBody = $modal.querySelector('.modal-body')
+		const modalTitle = $myModal.querySelector('.modal-title')
+		const modalBody = $myModal.querySelector('.modal-body')
 		// const modalBodyInput = $myModal.querySelector('.modal-body input')
 
 		modalTitle.textContent = `Data: ${btnTarget} | ${dataObj} | ${dataCat} | ${dataMsg}`
