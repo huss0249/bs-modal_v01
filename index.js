@@ -2,6 +2,51 @@ const msg1 = { head: 'head1', msg: 'Hello from msg1', Yes: 'A1', No: 'B1', Ok: '
 const msg2 = { head: 'head1', msg: 'Hello from msg2', Yes: 'A2', No: 'B2', Ok: 'ok'}
 //----------------------------------------------------------
 
+const make_modal = () => {
+	// let df = new DocumentFragment()
+	let modal = document.createElement('div')
+	modal.id = 'modal'
+	modal.className = 'modal fade'
+	modal.setAttribute('tabindex', '-1')
+	modal.setAttribute('aria-labelledby', 'modalLabel')
+	modal.setAttribute('aria-hidden', 'true')
+	// <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+	modal.innerHTML = `
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+							<h1 class="modal-title fs-5" id="modalLabel">New message</h1>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+
+							</div>
+							<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-primary">Send message</button>
+							</div>
+						</div>
+						</div>
+						`
+						// </div>
+	// console.log(modal)
+	return modal
+}
+
+// const modal = make_modal()
+const $modal = make_modal()
+
+// $modal = new bootstrap.Modal(document.querySelector('#modal'))
+// let $modal = bootstrap.Modal.getOrCreateInstance(modal)
+
+bootstrap.Modal.getOrCreateInstance($modal)
+
+let $main = document.getElementById('main')
+// $main.append(modal)
+$main.append($modal)
+console.log($main)
+// console.log($modal)
+
 const populate_msg = (e) => {
 	console.log(e)
 }
