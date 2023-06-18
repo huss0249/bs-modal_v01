@@ -133,15 +133,18 @@ let modal_controls = () => {
 	
 	if ($modal_extract.style === '2') {
 		let $btnYes = $modal.querySelector('[data-bs-respond="yes"]')
+	
 		$btnYes.addEventListener('click', modal_events)
 	
 		let $btnNo = $modal.querySelector('[data-bs-respond="no"]')
+	
 		$btnNo.addEventListener('click', modal_events)
 	} else if ($modal_extract.style === '1') {
+	
 		let $btnOk = $modal.querySelector('[data-bs-respond="ok"]')
+	
 		$btnOk.addEventListener('click', modal_events)
-	} //else if ($modal_extract.style === '0') {
-	//}
+	}
 	return
 }
 
@@ -155,16 +158,9 @@ const update_modal = (obj, $modal_parts) => {
 
 	$modal_parts.title.innerHTML = `${obj.icon} ${obj.head}`
 
-	// $modal_parts.body.textContent = `${obj.body}`
-	// $modal_parts.body.innerHTML = `${obj.body}`
-
-	// Will render body content as HTML as required
-	// $modal_extract.html ? $modal_parts.body.innerHTML = `${obj.body}` : $modal_parts.body.textContent = `${obj.body}`
-
-
-
-
-	$modal_extract.html === 'true' ? $modal_parts.body.innerHTML = `${obj.body}` : $modal_parts.body.textContent = htmlToTxt(`${obj.body}`)
+	$modal_extract.html === 'true' ?
+		$modal_parts.body.innerHTML = `${obj.body}` :
+		$modal_parts.body.textContent = htmlToTxt(`${obj.body}`)
 
 	$modal_parts.footer.innerHTML = `${obj.controls}`
 	
