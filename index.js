@@ -1,3 +1,13 @@
+// UTIL =================>
+// Create a new div	=>	attach data to it	=>	Return as text	=> |
+const htmlToTxt = (html_data) => {
+	let tmp_div = document.createElement("div");
+	tmp_div.innerHTML = html_data;
+	return tmp_div.textContent || tmp_div.innerText || "";
+}
+// UTIL =================>
+
+
 // Global modal data source
 globalThis.modals_data = {
 	msg1: { 'head': 'head1', 'msg': 'Hello from msg1', 'yes': 'A1', 'no': 'B1', 'ok': 'ok' },
@@ -134,25 +144,6 @@ let modal_controls = () => {
 	//}
 	return
 }
-
-
-
-const htmlToTxt = (html_data) => {
-	// Create a new div element
-	let tmp_div = document.createElement("div");
-  
-	// Set the HTML content with the given value
-	tmp_div.innerHTML = html_data;
-  
-	// Retrieve the text property of the element
-	return tmp_div.textContent || tmp_div.innerText || "";
-  }
-  
-//   var htmlString =
-// 	"<div><h1>Bears Beets Battlestar Galactica </h1>\n<p>Quote by Dwight Schrute</p></div>";
-  
-// console.log(convertToPlain(htmlString));
-  
 
 
 
