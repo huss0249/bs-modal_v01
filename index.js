@@ -44,64 +44,53 @@ $main.append($modal)
 const update_modal = (selectedBtn) => {
 	// Extract info from data-bs-* attributes
 	let dataObj = selectedBtn.getAttribute('data-bs-obj')
+	let dataCat = selectedBtn.getAttribute('data-bs-cat')
+	let dataMsg = selectedBtn.getAttribute('data-bs-msg')
+
 	let dataFull = selectedBtn.getAttribute('data-bs-full')
 	// let $msg = selectedBtn.getAttribute('data-bs-full')[msg]
 	let $msgA = modals_data[`msg${dataObj}`].msg
 	let $msg = modals_data[dataFull].msg
-	let dataCat = selectedBtn.getAttribute('data-bs-cat')
-	let dataMsg = selectedBtn.getAttribute('data-bs-msg')
 
 	let modalTitle = $modal.querySelector('.modal-title')
 	let modalBody = $modal.querySelector('.modal-body')
 	let modalFooter = $modal.querySelector('.modal-footer')
 
-
-	/* 
-	el[`${currentLanguage}_name`]
-	*/
-
-
-
+	// Update the modal's content.
 	
 	console.log('dddd = ', $msg)	
 	console.log('eeeee = ', $msgA)	
 
-
-	// var a = "hello world";
-	// let varName = `msg${dataObj}.msg`
-	// console.log( varName)
-	// console.log( window[varName] )
-	// console.log(this[varName])
-	
-
-	// console.log(`${msg1['msg']}`);
-	// console.log(`${msg2['msg']}`);
 	console.log(' direct => msg2.msg => ', modals_data.msg2.msg);
 	
-	// console.log(`window.['msg'${dataObj}][msg]`);
 	console.log('wwww = > ', `msg${dataObj}.msg`);
 
 	console.log(`msg${dataObj}.msg`);
-	
 
 	console.log(Object.toString(`msg${dataObj}.msg`));
 	
-	// modalBody.textContent = `msg[${dataObj}].msg`
-	// modalBody.textContent = `${[dataFull]['msg']}`
+	modalTitle.textContent = `${$msg}`
 	modalBody.textContent = `${$msg}`
 
 	if (dataCat === '0') {
 		// modalBody.textContent = `${dataObj}.Msg`
+		modalTitle.innerHTML = ''
+		modalFooter.innerHTML = ''
 	} else if (dataCat === '1') {
+		modalFooter.innerHTML = `<button class='btn btn-info'>: ${selectedBtn} | ${dataObj} | ${dataCat} | ${dataMsg}</button>`
 		console.log(dataCat)
 	} else if (dataCat === '2') {
+		modalFooter.innerHTML = `
+		<button class='btn btn-info'>: ${selectedBtn} | ${dataObj} | ${dataCat} | ${dataMsg}</button>
+		<button class='btn btn-info'>: ${selectedBtn} | ${dataObj} | ${dataCat} | ${dataMsg}</button>
+		`
 		console.log(dataCat)
 	}
-	// Update the modal's content.
 	// modalTitle.textContent = `Data: ${selectedBtn} | ${dataObj} | ${dataCat} | ${dataMsg}`
 	// modalTitle.textContent = ''
 	// modalBody.textContent = `Data: ${selectedBtn} | ${dataObj} | ${dataCat} | ${dataMsg}`
-	modalFooter.innerHTML = `<button class='btn btn-info'>: ${selectedBtn} | ${dataObj} | ${dataCat} | ${dataMsg}</button>`
+
+	// modalFooter.innerHTML = `<button class='btn btn-info'>: ${selectedBtn} | ${dataObj} | ${dataCat} | ${dataMsg}</button>`
 }
 
 const generate_modal = (e) => {
