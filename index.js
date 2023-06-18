@@ -41,18 +41,11 @@ $main.append($modal)
 
 const generate_modal_data = (selectedBtn) => {
 	// Extract info from data-bs-* attributes
-	let dataObj = selectedBtn.getAttribute('data-bs-obj')
-	let dataCat = selectedBtn.getAttribute('data-bs-cat')
-	let dataMsg = selectedBtn.getAttribute('data-bs-msg')
-
-	let dataFull = selectedBtn.getAttribute('data-bs-full')
-	// let $msg = selectedBtn.getAttribute('data-bs-full')[msg]
-	let $msgA = modals_data[`msg${dataObj}`].msg
-	let $msg = modals_data[dataFull].msg
-
-	let modalTitle = $modal.querySelector('.modal-title')
-	let modalBody = $modal.querySelector('.modal-body')
-	let modalFooter = $modal.querySelector('.modal-footer')
+	let extracted = {
+		obj: selectedBtn.getAttribute('data-bs-obj'),
+		cat: selectedBtn.getAttribute('data-bs-cat'),
+		msg: selectedBtn.getAttribute('data-bs-msg'),
+	}
 
 	let modal_parts = {
 		title: $modal.querySelector('.modal-title'),
@@ -61,57 +54,46 @@ const generate_modal_data = (selectedBtn) => {
 	}
 
 	// Update the modal's content.
-
 	let $modal_data = {
 		icon: '',
-		title: '',
-		body: modals_data[`msg${dataObj}`].msg,
+		head: modals_data[`msg${extracted.obj}`].head,
+		// title: [this.icon, this.head],
+		body: modals_data[`msg${extracted.obj}`].msg,
 		controls: [],
-		callbacks: []
+		callbacks: [],
+		// footer: ''
 	}
 
-	
-	console.log('dddd = ', $msg)	
-	console.log('eeeee = ', $msgA)	
-
-	console.log(' direct => msg2.msg => ', modals_data.msg2.msg);
-	
-	console.log('wwww = > ', `msg${dataObj}.msg`);
-
-	console.log(`msg${dataObj}.msg`);
-
-	console.log(Object.toString(`msg${dataObj}.msg`));
-	
-	modalTitle.textContent = `${$msg}`
-	modalBody.textContent = `${$msg}`
-
-	modalTitle.textContent = `${$modal_data.title}`
-	modalBody.textContent = `${$modal_data.body}`
-
-	if (dataCat === '0') {
+	if (extracted.cat === '0') {
 		// modalBody.textContent = `${dataObj}.Msg`
-		modalTitle.innerHTML = `<i class="fa fa-2x fa-info-circle" aria-hidden="true"></i>`
-		modalFooter.innerHTML = ''
-	} else if (dataCat === '1') {
-		modalTitle.innerHTML = `<i class="fa fa-2x fa-info-circle" aria-hidden="true"></i>`
-		modalFooter.innerHTML = `<button class='btn btn-info' data-bs-dismiss="modal">: ${selectedBtn} | ${dataObj} | ${dataCat} | ${dataMsg}</button>`
-		console.log(dataCat)
-	} else if (dataCat === '2') {
-		modalFooter.innerHTML = `
-		<button class='btn btn-info' data-bs-dismiss="modal">${dataObj}</button>
-		<button class='btn btn-info' data-bs-dismiss="modal">: ${selectedBtn} | ${dataObj} | ${dataCat} | ${dataMsg}</button>
+		$modal_data.icon = `<i class="fa fa-2x fa-info-circle" aria-hidden="true"></i>`
+		$modal_data.head = '' 
+		$modal_data.controls = '' 
+	} else if (extracted.cat === '1') {
+		$modal_data.icon = '<i class="fa fa-2x fa-info-circle" aria-hidden="true"></i>'
+		$modal_data.head = modals_data[`msg${extracted.obj}`].head
+		$modal_data.controls = `<button class='btn btn-info' data-bs-dismiss="modal">${modals_data[`msg${extracted.obj}`].ok}</button>`
+	} else if (extracted.cat === '2') {
+		// modalFooter.innerHTML = `
+		$modal_data.controls = ` 
+		<button class='btn btn-info' data-bs-dismiss="modal">${modals_data[`msg${extracted.obj}`].yes}</button>
+		<button class='btn btn-info' data-bs-dismiss="modal">${modals_data[`msg${extracted.obj}`].no}</button>
 		`
-		console.log(dataCat)
 	}
-
+	
+	console.log('0 => ', $modal_data.controls, ' | ', $modal_data.footer)
+	
 	return update_modal($modal_data, modal_parts)
 }
+
 const update_modal = (obj, modal_parts) => {
 	
 	console.log('obj ======= > ', obj, modal_parts);
 
-	modal_parts.title.textContent = `${obj.title}`
+	// modal_parts.title.textContent = `${obj.icon} ${obj.head}`
+	modal_parts.title.innerHTML = `${obj.icon} ${obj.head}`
 	modal_parts.body.textContent = `${obj.body}`
+	modal_parts.footer.innerHTML = `${obj.controls}`
 return
 }
 
