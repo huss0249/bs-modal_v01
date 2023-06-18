@@ -52,42 +52,29 @@ const update_modal = (selectedBtn) => {
 	// console.log(`${msg2['msg']}`);
 	console.log(' direct => msg2.msg => ', msg2.msg);
 	
-	console.log(`${dataObj[ 'msg' ]}`);
-	console.log(dataObj['msg']);
+	console.log(`msg${dataObj}.msg`);
+	console.log(`msg${dataObj}['msg']`);
 	
-	function read_prop(obj, prop) {
-		return obj[prop];
-	}
-	
-	read_prop(dataObj, 'msg')
-	
+
+
+
 	if (dataCat === '0') {
 		// console.log(dataObj)
 		// console.log([`${dataObj}.msg`]);
 		// console.log(Object.toString(`${dataObj}.msg`));
+		console.log(Object.toString(`msg${dataObj}.msg`));
 
 
 		// console.log(`${eval(dataObj).msg}`);
-		// console.log(`${String(dataObj)['msg']}`);
-		// console.log(`${msg1['msg']}`);
-		// console.log(`${dataObj['msg']}`);
-
-
-		
-
-		// el[`${currentLanguage}_name`]
-
-		// for (let [key, value] of Object.entries(msg2)) {
-		// 	console.log(key)
-		// 	console.log(value)
-		//   }
 		
 		// modalBody.textContent = `${["dataObj"]["msg"]}`
 		// modalBody.textContent = `${eval(bb).msg}`
 		// modalBody.textContent = `${bb[keyAsVariable].msg}`
 		
 		// modalBody.textContent = `${dataObj}`
-		modalBody.textContent = `${dataObj}.Msg`
+
+		// modalBody.textContent = `${dataObj}.Msg`
+		modalBody.textContent = `msg${dataObj}.msg`
 	} else if (dataCat === '1') {
 		console.log(dataCat)
 	} else if (dataCat === '2') {
