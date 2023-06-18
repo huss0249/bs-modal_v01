@@ -21,6 +21,7 @@ const init_modal = () => {
 	modal.id = 'modal'
 	modal.className = 'modal fade'
 	modal.setAttribute('tabindex', '-1')
+	modal.setAttribute('data-bs-backdrop', 'static')
 	modal.setAttribute('aria-labelledby', 'modalLabel')
 	modal.setAttribute('aria-hidden', 'true')
 	modal.innerHTML = `<div class="modal-dialog modal-dialog-centered">
