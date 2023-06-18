@@ -57,11 +57,9 @@ const generate_modal_data = (selectedBtn) => {
 	let $modal_data = {
 		icon: '',
 		head: modals_data[`msg${extracted.obj}`].head,
-		// title: [this.icon, this.head],
 		body: modals_data[`msg${extracted.obj}`].msg,
 		controls: [],
 		callbacks: [],
-		// footer: ''
 	}
 
 	if (extracted.cat === '0') {
@@ -71,18 +69,14 @@ const generate_modal_data = (selectedBtn) => {
 		$modal_data.controls = '' 
 	} else if (extracted.cat === '1') {
 		$modal_data.icon = '<i class="fa fa-2x fa-info-circle" aria-hidden="true"></i>'
-		$modal_data.head = modals_data[`msg${extracted.obj}`].head
+		// $modal_data.head = modals_data[`msg${extracted.obj}`].head
 		$modal_data.controls = `<button class='btn btn-info' data-bs-dismiss="modal">${modals_data[`msg${extracted.obj}`].ok}</button>`
 	} else if (extracted.cat === '2') {
-		// modalFooter.innerHTML = `
 		$modal_data.controls = ` 
 		<button class='btn btn-info' data-bs-dismiss="modal">${modals_data[`msg${extracted.obj}`].yes}</button>
 		<button class='btn btn-info' data-bs-dismiss="modal">${modals_data[`msg${extracted.obj}`].no}</button>
 		`
 	}
-	
-	console.log('0 => ', $modal_data.controls, ' | ', $modal_data.footer)
-	
 	return update_modal($modal_data, modal_parts)
 }
 
