@@ -1,6 +1,6 @@
 globalThis.modals_data = {
 	msg1: { 'head': 'head1', 'msg': 'Hello from msg1', 'yes': 'A1', 'no': 'B1', 'ok': 'ok' },
-	msg2: { 'head': 'head1', 'msg': 'Hello from msg2', 'yes': 'A2', 'no': 'B2', 'ok': 'ok2' }
+	msg2: { 'head': 'head2', 'msg': 'Hello from msg2', 'yes': 'A2', 'no': 'B2', 'ok': 'ok2' }
 }//----------------------------------------------------------
 
 const init_modal = () => {
@@ -39,6 +39,9 @@ bootstrap.Modal.getOrCreateInstance($modal)
 let $main = document.getElementById('main')
 $main.append($modal)
 
+let $modal_data = ''
+let modal_parts = ''
+
 const generate_modal_data = (selectedBtn) => {
 	// Extract info from data-bs-* attributes
 	let extracted = {
@@ -47,20 +50,23 @@ const generate_modal_data = (selectedBtn) => {
 		msg: selectedBtn.getAttribute('data-bs-msg'),
 	}
 
-	let modal_parts = {
+	// let modal_parts = {
+	modal_parts = {
 		title: $modal.querySelector('.modal-title'),
 		body: $modal.querySelector('.modal-body'),
 		footer: $modal.querySelector('.modal-footer'),
 	}
 
 	// Update the modal's content.
-	let $modal_data = {
+	// let $modal_data = {
+	$modal_data = {
 		icon: '',
 		head: modals_data[`msg${extracted.obj}`].head,
 		body: modals_data[`msg${extracted.obj}`].msg,
 		controls: [],
 		callbacks: [],
 	}
+	console.log('$modal_data.head = > ', $modal_data.head)
 
 	if (extracted.cat === '0') {
 		// modalBody.textContent = `${dataObj}.Msg`
