@@ -1,9 +1,9 @@
 // window.msg1 = { 'head': 'head1', 'msg': 'Hello from msg1', 'Yes': 'A1', 'No': 'B1', 'Ok': 'ok'}
 // window.msg2 = { 'head': 'head1', 'msg': 'Hello from msg2', 'Yes': 'A2', 'No': 'B2', 'Ok': 'ok'}
 //----------------------------------------------------------
-window.a = {
-	msg1: { 'head': 'head1', 'msg': 'Hello from msg1', 'Yes': 'A1', 'No': 'B1', 'Ok': 'ok' },
-	msg2: { 'head': 'head1', 'msg': 'Hello from msg2', 'Yes': 'A2', 'No': 'B2', 'Ok': 'ok' }
+globalThis.modals_data = {
+	msg1: { 'head': 'head1', 'msg': 'Hello from msg1', 'yes': 'A1', 'no': 'B1', 'Ok': 'ok' },
+	msg2: { 'head': 'head1', 'msg': 'Hello from msg2', 'yes': 'A2', 'no': 'B2', 'Ok': 'ok' }
 }//----------------------------------------------------------
 
 const init_modal = () => {
@@ -46,7 +46,8 @@ const update_modal = (selectedBtn) => {
 	let dataObj = selectedBtn.getAttribute('data-bs-obj')
 	let dataFull = selectedBtn.getAttribute('data-bs-full')
 	// let $msg = selectedBtn.getAttribute('data-bs-full')[msg]
-	let $msg = a[dataFull].msg
+	let $msgA = modals_data[`msg${dataObj}`].msg
+	let $msg = modals_data[dataFull].msg
 	let dataCat = selectedBtn.getAttribute('data-bs-cat')
 	let dataMsg = selectedBtn.getAttribute('data-bs-msg')
 
@@ -61,7 +62,9 @@ const update_modal = (selectedBtn) => {
 
 
 
+	
 	console.log('dddd = ', $msg)	
+	console.log('eeeee = ', $msgA)	
 
 
 	// var a = "hello world";
@@ -73,7 +76,7 @@ const update_modal = (selectedBtn) => {
 
 	// console.log(`${msg1['msg']}`);
 	// console.log(`${msg2['msg']}`);
-	console.log(' direct => msg2.msg => ', a.msg2.msg);
+	console.log(' direct => msg2.msg => ', modals_data.msg2.msg);
 	
 	// console.log(`window.['msg'${dataObj}][msg]`);
 	console.log('wwww = > ', `msg${dataObj}.msg`);
