@@ -152,10 +152,6 @@ let modal_controls = () => {
 
 // modal parts filled dynamically
 const update_modal = (obj, $modal_parts) => {
-
-	console.log('$modal_extract html => ', $modal_extract.html)
-
-
 	$modal_parts.title.innerHTML = `${obj.icon} ${obj.head}`
 
 	$modal_extract.html === 'true' ?
