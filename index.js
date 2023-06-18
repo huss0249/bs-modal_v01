@@ -46,18 +46,56 @@ const update_modal = (selectedBtn) => {
 	let modalTitle = $modal.querySelector('.modal-title')
 	let modalBody = $modal.querySelector('.modal-body')
 	let modalFooter = $modal.querySelector('.modal-footer')
+
+
+	// console.log(`${msg1['msg']}`);
+	// console.log(`${msg2['msg']}`);
+	console.log(' direct => msg2.msg => ', msg2.msg);
 	
+	console.log(`${dataObj}.${dataObj.msg}`);
+	
+
+	
+	if (dataCat === '0') {
+		// console.log(dataObj)
+		// console.log([`${dataObj}.msg`]);
+		// console.log(Object.toString(`${dataObj}.msg`));
+
+
+		// console.log(`${eval(dataObj).msg}`);
+		// console.log(`${String(dataObj)['msg']}`);
+		// console.log(`${msg1['msg']}`);
+		// console.log(`${dataObj['msg']}`);
+
+
+		
+
+		// el[`${currentLanguage}_name`]
+
+		// for (let [key, value] of Object.entries(msg2)) {
+		// 	console.log(key)
+		// 	console.log(value)
+		//   }
+		
+		// modalBody.textContent = `${["dataObj"]["msg"]}`
+		// modalBody.textContent = `${eval(bb).msg}`
+		// modalBody.textContent = `${bb[keyAsVariable].msg}`
+		modalBody.textContent = `${dataObj}`
+	} else if (dataCat === '1') {
+		console.log(dataCat)
+	} else if (dataCat === '2') {
+		console.log(dataCat)
+	}
 	// Update the modal's content.
 	// modalTitle.textContent = `Data: ${selectedBtn} | ${dataObj} | ${dataCat} | ${dataMsg}`
 	modalTitle.textContent = ''
-	modalBody.textContent = `Data: ${selectedBtn} | ${dataObj} | ${dataCat} | ${dataMsg}`
+	// modalBody.textContent = `Data: ${selectedBtn} | ${dataObj} | ${dataCat} | ${dataMsg}`
 	modalFooter.innerHTML = `<button class='btn btn-info'>: ${selectedBtn} | ${dataObj} | ${dataCat} | ${dataMsg}</button>`
 }
 
 const generate_modal = (e) => {
 	let selectedBtn = e.target
-	console.log('selectedBtn => ', selectedBtn)
-
+	// console.log('selectedBtn => ', selectedBtn)
 
 	update_modal(selectedBtn)
 
