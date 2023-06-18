@@ -1,5 +1,5 @@
-const msg1 = { head: 'head1', msg: 'Hello from msg1', Yes: 'A1', No: 'B1', Ok: 'ok'}
-const msg2 = { head: 'head1', msg: 'Hello from msg2', Yes: 'A2', No: 'B2', Ok: 'ok'}
+const msg1 = { 'head': 'head1', 'msg': 'Hello from msg1', 'Yes': 'A1', 'No': 'B1', 'Ok': 'ok'}
+const msg2 = { 'head': 'head1', 'msg': 'Hello from msg2', 'Yes': 'A2', 'No': 'B2', 'Ok': 'ok'}
 //----------------------------------------------------------
 
 const init_modal = () => {
@@ -52,9 +52,14 @@ const update_modal = (selectedBtn) => {
 	// console.log(`${msg2['msg']}`);
 	console.log(' direct => msg2.msg => ', msg2.msg);
 	
-	console.log(`${dataObj}.${dataObj.msg}`);
+	console.log(`${dataObj[ 'msg' ]}`);
+	console.log(dataObj['msg']);
 	
-
+	function read_prop(obj, prop) {
+		return obj[prop];
+	}
+	
+	read_prop(dataObj, 'msg')
 	
 	if (dataCat === '0') {
 		// console.log(dataObj)
@@ -80,7 +85,9 @@ const update_modal = (selectedBtn) => {
 		// modalBody.textContent = `${["dataObj"]["msg"]}`
 		// modalBody.textContent = `${eval(bb).msg}`
 		// modalBody.textContent = `${bb[keyAsVariable].msg}`
-		modalBody.textContent = `${dataObj}`
+		
+		// modalBody.textContent = `${dataObj}`
+		modalBody.textContent = `${dataObj}.Msg`
 	} else if (dataCat === '1') {
 		console.log(dataCat)
 	} else if (dataCat === '2') {
