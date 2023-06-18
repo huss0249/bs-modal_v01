@@ -1,8 +1,21 @@
+// UTIL =================>
+// Create a new div	=>	attach data to it	=>	Return as text	=> |
+const htmlToTxt = (html_data) => {
+	let tmp_div = document.createElement("div");
+	tmp_div.innerHTML = html_data;
+	return tmp_div.textContent || tmp_div.innerText || "";
+}
+// UTIL =================>
+
+
+// Global modal data source
 globalThis.modals_data = {
 	msg1: { 'head': 'head1', 'msg': 'Hello from msg1', 'yes': 'A1', 'no': 'B1', 'ok': 'ok' },
-	msg2: { 'head': 'head1', 'msg': 'Hello from msg2', 'yes': 'A2', 'no': 'B2', 'ok': 'ok2' }
-}//----------------------------------------------------------
+	msg2: { 'head': 'head2', 'msg': '<p style="color: red"><b>Hello</b></p> from <a href="http://google.ca" target="blank">Link</a> in msg2', 'yes': 'A2', 'no': 'B2', 'ok': 'ok2' }
+}
 
+//----------------------------------------------------------
+// INIT modal structure
 const init_modal = () => {
 	let modal = document.createElement('div')
 	modal.id = 'modal'
@@ -24,107 +37,150 @@ const init_modal = () => {
 }
 
 /*
-	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-	<button type="button" class="btn btn-primary">Send message</button>
-*/
-/*
 --------------------------------------------------------
 */
 
 // START HERE
 const $modal = init_modal()
-
+// Link modal to bootstrap class
 bootstrap.Modal.getOrCreateInstance($modal)
 
 let $main = document.getElementById('main')
 $main.append($modal)
 
+let $modal_extract = {}
+let $modal_parts = {}
+let $modal_data = {}
+
+// Check the style of the desired modal (Only close btn, close and 1 dismiss, close and 2 dismiss)
+const check_modal_style = () => {
+	if ($modal_extract.style === '0') {
+		//fontawesom
+		// $modal_data.icon = `<i class="fa fa-2x fa-info-circle" aria-hidden="true"></i>`		
+		$modal_data.icon = `<i class="bi-alarm" style="font-size: 2rem; color: cornflowerblue;"></i>`
+
+		$modal_data.head = ''
+		$modal_data.controls = '' 
+	} else if ($modal_extract.style === '1') {
+		//fontawesom
+		// $modal_data.icon = '<i class="fa fa-2x fa-info-circle" aria-hidden="true"></i>'
+		$modal_data.icon = '<i class="bi-alarm" style="font-size: 2rem; color: cornflowerblue;"></i>'
+
+		$modal_data.controls = `<button 
+										class='btn btn-info'
+										type="button"
+										data-bs-dismiss="modal"
+										data-bs-respond="ok"
+										>${modals_data[`msg${$modal_extract.obj}`].ok}</button>`
+	} else if ($modal_extract.style === '2') {
+		$modal_data.head = ''
+		$modal_data.controls = `<button
+										class='btn btn-info'
+										type="button"
+										data-bs-dismiss="modal"
+										data-bs-respond="yes"
+										>${modals_data[`msg${$modal_extract.obj}`].yes}</button>
+								<button
+										class='btn btn-info'
+										type="button"
+										data-bs-dismiss="modal"
+										data-bs-respond="no"
+										>${modals_data[`msg${$modal_extract.obj}`].no}</button>
+		`
+	}
+	return
+}
+
 const generate_modal_data = (selectedBtn) => {
 	// Extract info from data-bs-* attributes
-	let dataObj = selectedBtn.getAttribute('data-bs-obj')
-	let dataCat = selectedBtn.getAttribute('data-bs-cat')
-	let dataMsg = selectedBtn.getAttribute('data-bs-msg')
+	$modal_extract = {
+		obj: selectedBtn.getAttribute('data-bs-obj'),
+		style: selectedBtn.getAttribute('data-bs-style'),
+		html: selectedBtn.getAttribute('data-bs-html'),
+	}
 
-	let dataFull = selectedBtn.getAttribute('data-bs-full')
-	// let $msg = selectedBtn.getAttribute('data-bs-full')[msg]
-	let $msgA = modals_data[`msg${dataObj}`].msg
-	let $msg = modals_data[dataFull].msg
-
-	let modalTitle = $modal.querySelector('.modal-title')
-	let modalBody = $modal.querySelector('.modal-body')
-	let modalFooter = $modal.querySelector('.modal-footer')
-
-	let modal_parts = {
+	// modal parts to update dynamically
+	$modal_parts = {
 		title: $modal.querySelector('.modal-title'),
 		body: $modal.querySelector('.modal-body'),
 		footer: $modal.querySelector('.modal-footer'),
 	}
 
 	// Update the modal's content.
-
-	let $modal_data = {
+	$modal_data = {
 		icon: '',
-		title: '',
-		body: modals_data[`msg${dataObj}`].msg,
+		head: modals_data[`msg${$modal_extract.obj}`].head,
+		body: modals_data[`msg${$modal_extract.obj}`].msg,
 		controls: [],
-		callbacks: []
+		callbacks: [],
 	}
 
+	check_modal_style()
+	return update_modal($modal_data, $modal_parts)
+}
+
+$modal.addEventListener('show.bs.modal', event => {})
+
+
+// add Event listeners
+const modal_events = (e) => {
+	console.log(e.target.textContent)
+	console.log(e.target.getAttribute('data-bs-respond'))
+}
+// add Event listeners
+let modal_controls = () => {
+	$modal.addEventListener('hide.bs.modal', event => {	})
 	
-	console.log('dddd = ', $msg)	
-	console.log('eeeee = ', $msgA)	
-
-	console.log(' direct => msg2.msg => ', modals_data.msg2.msg);
+	if ($modal_extract.style === '2') {
+		let $btnYes = $modal.querySelector('[data-bs-respond="yes"]')
 	
-	console.log('wwww = > ', `msg${dataObj}.msg`);
-
-	console.log(`msg${dataObj}.msg`);
-
-	console.log(Object.toString(`msg${dataObj}.msg`));
+		$btnYes.addEventListener('click', modal_events)
 	
-	modalTitle.textContent = `${$msg}`
-	modalBody.textContent = `${$msg}`
-
-	modalTitle.textContent = `${$modal_data.title}`
-	modalBody.textContent = `${$modal_data.body}`
-
-	if (dataCat === '0') {
-		// modalBody.textContent = `${dataObj}.Msg`
-		modalTitle.innerHTML = `<i class="fa fa-2x fa-info-circle" aria-hidden="true"></i>`
-		modalFooter.innerHTML = ''
-	} else if (dataCat === '1') {
-		modalTitle.innerHTML = `<i class="fa fa-2x fa-info-circle" aria-hidden="true"></i>`
-		modalFooter.innerHTML = `<button class='btn btn-info' data-bs-dismiss="modal">: ${selectedBtn} | ${dataObj} | ${dataCat} | ${dataMsg}</button>`
-		console.log(dataCat)
-	} else if (dataCat === '2') {
-		modalFooter.innerHTML = `
-		<button class='btn btn-info' data-bs-dismiss="modal">${dataObj}</button>
-		<button class='btn btn-info' data-bs-dismiss="modal">: ${selectedBtn} | ${dataObj} | ${dataCat} | ${dataMsg}</button>
-		`
-		console.log(dataCat)
+		let $btnNo = $modal.querySelector('[data-bs-respond="no"]')
+	
+		$btnNo.addEventListener('click', modal_events)
+	} else if ($modal_extract.style === '1') {
+	
+		let $btnOk = $modal.querySelector('[data-bs-respond="ok"]')
+	
+		$btnOk.addEventListener('click', modal_events)
 	}
-
-	return update_modal($modal_data, modal_parts)
+	return
 }
-const update_modal = (obj, modal_parts) => {
+
+
+
+// modal parts filled dynamically
+const update_modal = (obj, $modal_parts) => {
+
+	console.log('$modal_extract html => ', $modal_extract.html)
+
+
+	$modal_parts.title.innerHTML = `${obj.icon} ${obj.head}`
+
+	$modal_extract.html === 'true' ?
+		$modal_parts.body.innerHTML = `${obj.body}` :
+		$modal_parts.body.textContent = htmlToTxt(`${obj.body}`)
+
+	$modal_parts.footer.innerHTML = `${obj.controls}`
 	
-	console.log('obj ======= > ', obj, modal_parts);
-
-	modal_parts.title.textContent = `${obj.title}`
-	modal_parts.body.textContent = `${obj.body}`
-return
+	modal_controls()
+	return
 }
 
+// Get the selected source button
 const select_modal = (e) => {
 	let selectedBtn = e.target
 	generate_modal_data(selectedBtn)
 }
 
+// Interaction starts from here
 const $en = document.querySelector('#en')
 const $fr = document.querySelector('#fr')
 const $info = document.querySelector('#info')
 const $close = document.querySelector('#close')
 
+// Buttons event listener to execute the interaction
 $en.addEventListener('click', select_modal)
 $fr.addEventListener('click', select_modal)
 $info.addEventListener('click', select_modal)
