@@ -45,25 +45,32 @@ let $modal_data = {}
 // Check the style of the desired modal (Only close btn, close and 1 dismiss, close and 2 dismiss)
 const check_modal_style = () => {
 	if ($modal_extract.style === '0') {
-		$modal_data.icon = `<i class="fa fa-2x fa-info-circle" aria-hidden="true"></i>`
-		$modal_data.head = '' 
+		//fontawesom
+		// $modal_data.icon = `<i class="fa fa-2x fa-info-circle" aria-hidden="true"></i>`		
+		$modal_data.icon = `<i class="bi-alarm" style="font-size: 2rem; color: cornflowerblue;"></i>`
+
+		$modal_data.head = ''
 		$modal_data.controls = '' 
 	} else if ($modal_extract.style === '1') {
-		$modal_data.icon = '<i class="fa fa-2x fa-info-circle" aria-hidden="true"></i>'
+		//fontawesom
+		// $modal_data.icon = '<i class="fa fa-2x fa-info-circle" aria-hidden="true"></i>'
+		$modal_data.icon = '<i class="bi-alarm" style="font-size: 2rem; color: cornflowerblue;"></i>'
+
 		$modal_data.controls = `<button 
 										class='btn btn-info'
 										type="button"
 										data-bs-dismiss="modal"
 										data-bs-respond="ok"
 										>${modals_data[`msg${$modal_extract.obj}`].ok}</button>`
-									} else if ($modal_extract.style === '2') {
-										$modal_data.controls = `<button
+	} else if ($modal_extract.style === '2') {
+		$modal_data.head = ''
+		$modal_data.controls = `<button
 										class='btn btn-info'
 										type="button"
 										data-bs-dismiss="modal"
 										data-bs-respond="yes"
 										>${modals_data[`msg${$modal_extract.obj}`].yes}</button>
-										<button
+								<button
 										class='btn btn-info'
 										type="button"
 										data-bs-dismiss="modal"
@@ -102,40 +109,27 @@ const generate_modal_data = (selectedBtn) => {
 	return update_modal($modal_data, $modal_parts)
 }
 
-$modal.addEventListener('show.bs.modal', event => {
-	// console.log(event)
-	// console.log('$modal_extract.style = ', $modal_extract.style)
-
-})
-
+$modal.addEventListener('show.bs.modal', event => {})
 
 
 // add Event listeners
 const modal_events = (e) => {
-	// console.log(e)
-	// console.log(e.target)
 	console.log(e.target.textContent)
 	console.log(e.target.getAttribute('data-bs-respond'))
 }
 // add Event listeners
 let modal_controls = () => {
-	$modal.addEventListener('hide.bs.modal', event => {
-		// console.log(event)
-	})
-	// console.log('$modal_extract.style = ', $modal_extract.style)
+	$modal.addEventListener('hide.bs.modal', event => {	})
+	
 	if ($modal_extract.style === '2') {
 		let $btnYes = $modal.querySelector('[data-bs-respond="yes"]')
 		$btnYes.addEventListener('click', modal_events)
-		// console.log($btnYes)
+	
 		let $btnNo = $modal.querySelector('[data-bs-respond="no"]')
 		$btnNo.addEventListener('click', modal_events)
-		// console.log($btnNo)
-		// console.log('$modal_extract.style = ', $modal_extract.style)
 	} else if ($modal_extract.style === '1') {
 		let $btnOk = $modal.querySelector('[data-bs-respond="ok"]')
-		// console.log($btnOk)
 		$btnOk.addEventListener('click', modal_events)
-		// console.log('$modal_extract.style = ', $modal_extract.style)
 	} //else if ($modal_extract.style === '0') {
 	//}
 	return
